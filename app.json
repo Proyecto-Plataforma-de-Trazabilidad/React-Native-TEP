@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "mapita",
+    "name": "TEP",
     "slug": "mapita",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icono.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icono.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -29,10 +29,16 @@
         "googleMaps": {
           "apiKey": "AIzaSyASLyp51V8W65RPg92rTcqaFWCOXz6KrOg"
         }
-      }
+      },
+      "package": "com.skalybone.mapita"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f8e928bb-865f-4ee5-8c18-7d2c45e87e80"
+      }
     }
   }
 }
