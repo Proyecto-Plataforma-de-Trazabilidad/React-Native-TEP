@@ -1,142 +1,176 @@
-import { DrawerContentScrollView, createDrawerNavigator } from '@react-navigation/drawer';
-import Index from './screens/Index';
-import GMap from './screens/GMap';
-import Catalogos from './screens/Catalogos';
-import { View, Text, StyleSheet } from 'react-native';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import MenuBottonItem from './ComponentesMenu/MenuBottonItem';
+import React from "react";
+import { useState } from 'react';
+import { Image, Text, StyleSheet, View, ScrollView, TouchableOpacity, TextInput, Button, StatusBar } from "react-native";
+import { BlurView } from 'expo-blur';
+import { useNavigation } from '@react-navigation/native';
+import axios from "axios";
+import CustomAlert from "./ComponentesMenu/CustomAlert";
 
 
+export default function Home() {
 
-const Drawer = createDrawerNavigator();
+    //Hacer la peticion de la consulta
 
-export default Home = () => {
+
+    //Agregar logos
+    const fondo = require('../assets/pead.png');
+    const logo = require('../assets/logotep2.png')
+
+    //Variables del formulario
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    //ALERTS
+    const [showAlert, setShowAlert] = useState(true);
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+    };
+
+    //Declarar la navegación
+    const navigation = useNavigation();
+
+    //Lógica de inicio de sesión
+    const handleLogin = async () => {
+        //console.log(email);
+        let parametros = {
+            "correo": email,
+            "contrasena": password
+        };
+
+        const respuestaPOST = await fetch('https://nodejs-api-tep-production.up.railway.app/api/usuarios/validar', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(parametros)
+        });
+
+        const respuestaJSON = await respuestaPOST.json();
+
+        if (!(respuestaJSON.error)) {
+            //Loggin correcto
+            alert(respuestaJSON.mensaje);
+            navigation.navigate('Drawer', {
+                idUsuario: respuestaJSON.datos[0].IdUsuario,
+                Rol: respuestaJSON.datos[0].Idtipousuario,
+                Nombre: respuestaJSON.datos[0].Nombre,
+            });
+        } else
+            alert(respuestaJSON.mensaje);//Loggin incorrecto  
+    }
+
     return (
-        <Drawer.Navigator
-            drawerContent={(props) => <MenuItems {...props} />}>
+        <View style={styles.container}>
+            <Image source={fondo} style={[styles.image, StyleSheet.absoluteFill]} />
+            <ScrollView contentContainerStyle={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>
 
-            <Drawer.Screen
-                name="Inicio"
-                component={Index}
-                options={{
-                    headerStyle: {
-                        backgroundColor: '#285430'
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold'
-                    }
-                }
-                }
-            />
+                <BlurView intensity={99}>
+                    <View style={styles.login}>
+                        <Image source={logo} style={styles.logotep} />
+                        <Text style={styles.slogan}>"Combatiendo la piratería de Agroquímicos"</Text>
 
 
-            <Drawer.Screen
-                name="GMap"
-                component={GMap}
-                options={{
-                    title: "Consulta Google Maps",
-                    headerStyle: {
-                        backgroundColor: '#285430'
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold'
-                    }
+                        <View>
+                            <Text style={{ fontSize: 17, fontWeight: '500', color: 'white' }}>Email</Text>
+                            <TextInput
+                                style={styles.input}
+                                autoCapitalize="none"
+                                placeholder="example@example.com"
+                                onChangeText={(email) => setEmail(email)}
+                                name="email"
+                                value={email} />
+                        </View>
 
-                }
-                }
-            />
+                        <View>
+                            <Text style={{ fontSize: 17, fontWeight: '500', color: 'white' }}>Contraseña</Text>
+                            <TextInput
+                                style={styles.input}
+                                autoCapitalize="none"
+                                secureTextEntry={true}
+                                placeholder="*********"
+                                onChangeText={(password) => setPassword(password)}
+                                name="password"
+                                value={password} />
+                        </View>
 
-            <Drawer.Screen
-                name="Catalogos"
-                component={Catalogos}
-                options={{
-                    title: "Menú Catálogos",
-                    headerStyle: {
-                        backgroundColor: '#285430'
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold'
-                    }
+                        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                            <Text style={{ fontSize: 17, fontWeight: '400', color: 'white' }}>Ingresar</Text>
 
-                }
-                }
-            />
-
-
-        </Drawer.Navigator>
+                        </TouchableOpacity>
+                    </View>
+                </BlurView>
+            </ScrollView>
+        </View>
     );
-}
-
-const MenuItems = ({ navigation }) => {
-    return (
-        <DrawerContentScrollView style={styles.container}>
-
-            <View style={styles.head}>
-                <AntDesign style={styles.icon} size={50} name='user' color={'white'} />
-                <Text style={styles.user}>Alejandro</Text>
-            </View>
-
-
-            <MenuBottonItem
-                text="Home"
-                onPress={() => navigation.navigate('Inicio')}
-                icon="home"
-            />
-
-            <MenuBottonItem
-                text="Catálogos"
-                onPress={() => navigation.navigate('Catalogos')}
-                icon="book"
-            />
-
-            <MenuBottonItem
-                text="Movimientos"
-                onPress={() => navigation.navigate('GMap')}
-                icon="telegram-plane"
-            />
-
-            <MenuBottonItem
-                text="Reportes"
-                onPress={() => navigation.navigate('GMap')}
-                icon="file-contract"
-            />
-
-            <MenuBottonItem
-                text="Ayuda"
-                onPress={() => navigation.navigate('Inicio')}
-                icon="info-circle"
-            />
-        </DrawerContentScrollView>
-    )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 15,
-        backgroundColor: '#285430',
-    },
-
-    head: {
-        flexDirection: "row",
         flex: 1,
-        alignItems: "center",
-        marginTop: 30,
-        marginBottom: 50
-
-    },
-
-    user: {
-        fontSize: 25,
-        fontWeight: "bold",
-        color: "#fff",
-        textAlign: "center",
-        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
         justifyContent: 'center',
     },
+    image: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover'
+    },
+    slogan: {
+        fontStyle: "italic",
+        fontSize: 16,
+        fontWeight: "bold",
+        marginBottom: 20,
+        color: "#fff",
+        textAlign: 'center'
 
+    },
+    login: {
+        width: 350,
+        height: 500,
+        borderColor: '#fff',
+        borderWidth: 2,
+        borderRadius: 10,
+        padding: 10,
+        alignItems: 'center'
+    },
+    logotep: {
+        width: 100,
+        height: 100,
+        backgroundColor: '#fff',
+        borderRadius: 25,
+        borderColor: '#fff',
+        borderWidth: 1,
+        marginVertical: 30
+    },
+    input: {
+        width: 250,
+        height: 40,
+        borderColor: '#fff',
+        borderWidth: 2,
+        borderRadius: 10,
+        padding: 10,
+        marginVertical: 10,
+        backgroundColor: '#ffffff99',
+        marginBottom: 20
+    },
+    button: {
+        width: 250,
+        height: 40,
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2,
+        backgroundColor: '#285430',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 10,
 
-    
+    },
 });

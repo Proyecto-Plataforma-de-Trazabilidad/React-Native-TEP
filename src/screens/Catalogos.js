@@ -2,11 +2,23 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 Amocali = require('../../assets/AMOCALI.png');
 Apeajal = require('../../assets/APEAJAL2.jpg');
 ASICA = require('../../assets/ASICA.jpg');
-import { FontAwesome } from '@expo/vector-icons';
 import OpcionesCatalogos from '../ComponentesMenu/OpcionesCatalogos';
+import { useNavigation } from '@react-navigation/native';
+
+
+
 
 
 export default Catalogos = () => {
+    const navigation = useNavigation();
+
+    const handleCatalogPress = () => {
+        navigation.navigate('Catalog');
+    };
+
+    const handleDistGPress = () => {
+        navigation.navigate('Catalog');
+    }
     return (
         <View style={styles.container}>
 
@@ -21,11 +33,13 @@ export default Catalogos = () => {
 
             <OpcionesCatalogos
                 text="Generales"
+                onPress={handleCatalogPress}
                 icon="globe"
             />
 
             <OpcionesCatalogos
                 text="Municipales"
+                onPress={handleDistGPress}
                 icon="building"
             />
         </View>
