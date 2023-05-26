@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ScrollView, Modal, TouchableHighlight, Image } 
 import { DataTable } from 'react-native-paper';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import logo from '../../assets/marcador.png';
+import { SelectList } from 'react-native-dropdown-select-list';
 
 
 Amocali = require('../../assets/AMOCALI.png');
@@ -10,8 +11,9 @@ Apeajal = require('../../assets/APEAJAL2.jpg');
 ASICA = require('../../assets/ASICA.jpg');
 
 
-export default DConsultaG = () => {
+export default DConsultaM = () => {
     const [selectedItem, setSelectedItem] = useState(null);
+    const [combo, setCombo] = useState('');
     
 
 
@@ -43,6 +45,17 @@ export default DConsultaG = () => {
 
             </View>
             <Text style={styles.slogan}>"Combatiendo la pirateria de agroquímicos"</Text>
+
+            <SelectList
+            setCombo = {(value) => setCombo(value)}
+            data={data}
+            save="value"
+            placeholder="Selecciona Municipio"
+            searchPlaceholder="buscar"
+            
+            />
+                
+            
 
             <DataTable>
                 <DataTable.Header>
