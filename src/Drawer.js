@@ -3,7 +3,9 @@ import Index from './screens/Index';
 import GMap from './screens/GMap';
 import Catalogos from './screens/Catalogos';
 import Catalog from './screens/Catalog';
+import CatalogM from './screens/CatalogM';
 import DConsultaG from './Distribuidores/DConsultaG';
+import DConsultaM from './Distribuidores/DConsultaM';
 import MenuBottonItem from './ComponentesMenu/MenuBottonItem';
 
 
@@ -78,7 +80,24 @@ export default Home = () => {
                 name="Catalog"
                 component={Catalog}
                 options={{
-                    title: "Menu Catálogos",
+                    title: "Menu Catálogos Generales",
+                    headerStyle: {
+                        backgroundColor: '#285430'
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold'
+                    }
+
+                }
+                }
+            />
+
+            <Drawer.Screen
+                name="CatalogM"
+                component={CatalogM}
+                options={{
+                    title: "Menu Catálogos Municipales",
                     headerStyle: {
                         backgroundColor: '#285430'
                     },
@@ -95,7 +114,24 @@ export default Home = () => {
                 name="DConsultaG"
                 component={DConsultaG}
                 options={{
-                    title: "Distribuidores Genrales",
+                    title: "Distribuidores Generales",
+                    headerStyle: {
+                        backgroundColor: '#285430'
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold'
+                    }
+
+                }
+                }
+            />
+
+            <Drawer.Screen
+                name="DConsultaM"
+                component={DConsultaM}
+                options={{
+                    title: "Distribuidores Municipales",
                     headerStyle: {
                         backgroundColor: '#285430'
                     },
@@ -115,16 +151,13 @@ export default Home = () => {
     );
 }
 
-const MenuItems = ({ props, navigation }) => {
-
-    console.log(props);
-    //const { idUsuario, Rol, Nombre } = props.route.params;
+const MenuItems = ({ navigation }) => {
     return (
         <DrawerContentScrollView style={styles.container}>
 
             <View style={styles.head}>
                 <AntDesign style={styles.icon} size={50} name='user' color={'white'} />
-                <Text style={styles.user}>.</Text>
+                <Text style={styles.user}>Alejandro</Text>
             </View>
 
 

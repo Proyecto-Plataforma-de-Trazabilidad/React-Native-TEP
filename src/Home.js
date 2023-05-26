@@ -10,7 +10,7 @@ import CustomAlert from "./ComponentesMenu/CustomAlert";
 export default function Home() {
 
     //Hacer la peticion de la consulta
-
+    
 
     //Agregar logos
     const fondo = require('../assets/pead.png');
@@ -30,34 +30,28 @@ export default function Home() {
     const navigation = useNavigation();
 
     //Lógica de inicio de sesión
-    const handleLogin = async () => {
-        //console.log(email);
-        let parametros = {
-            "correo": email,
-            "contrasena": password
-        };
+    const handleLogin = async (email, password) => {
+        // //Realizar la solitiud POST al archivo loginreact.php
+        // axios.post('http://localhost:8000/loginreact.php', { email: email, password: password })
+        //     .then(response => {
+        //         //Analizar la respuesta del servidor
+        //         const { success, message } = response.data;
 
-        const respuestaPOST = await fetch('https://nodejs-api-tep-production.up.railway.app/api/usuarios/validar', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(parametros)
-        });
-
-        const respuestaJSON = await respuestaPOST.json();
-
-        if (!(respuestaJSON.error)) {
-            //Loggin correcto
-            alert(respuestaJSON.mensaje);
-            navigation.navigate('Drawer', {
-                idUsuario: respuestaJSON.datos[0].IdUsuario,
-                Rol: respuestaJSON.datos[0].Idtipousuario,
-                Nombre: respuestaJSON.datos[0].Nombre,
-            });
-        } else
-            alert(respuestaJSON.mensaje);//Loggin incorrecto  
+        //         if (success) {
+        //             //Inicio de sesión exitoso, ir a la página principal
+        //             alert(message);
+                    
+        //         } else {
+        //             //Inicio de sesión fallido, mostrar mensaje de error
+        //             alert(message);
+        //         }
+        //     }).catch(error => {
+        //         //Error al realizar la solicitud
+        //         console.log(error);
+        //         alert("Intente más tarde")
+        //     });
+            navigation.navigate('Drawer');
+        
     }
 
     return (
@@ -83,9 +77,8 @@ export default function Home() {
                                 style={styles.input}
                                 autoCapitalize="none"
                                 placeholder="example@example.com"
-                                onChangeText={(email) => setEmail(email)}
-                                name="email"
-                                value={email} />
+                                onChangeText={setEmail}
+                                name="email" />
                         </View>
 
                         <View>
@@ -95,9 +88,8 @@ export default function Home() {
                                 autoCapitalize="none"
                                 secureTextEntry={true}
                                 placeholder="*********"
-                                onChangeText={(password) => setPassword(password)}
-                                name="password"
-                                value={password} />
+                                onChangeText={setPassword}
+                                name="password" />
                         </View>
 
                         <TouchableOpacity style={styles.button} onPress={handleLogin}>

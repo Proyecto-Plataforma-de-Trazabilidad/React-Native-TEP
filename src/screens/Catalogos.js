@@ -16,9 +16,11 @@ export default Catalogos = () => {
         navigation.navigate('Catalog');
     };
 
-    const handleDistGPress = () => {
-        navigation.navigate('Catalog');
-    }
+    const handleCatalogMPress = () => {
+        navigation.navigate('CatalogM');
+    };
+
+    
     return (
         <View style={styles.container}>
 
@@ -39,7 +41,7 @@ export default Catalogos = () => {
 
             <OpcionesCatalogos
                 text="Municipales"
-                onPress={handleDistGPress}
+                onPress={handleCatalogMPress}
                 icon="building"
             />
         </View>
