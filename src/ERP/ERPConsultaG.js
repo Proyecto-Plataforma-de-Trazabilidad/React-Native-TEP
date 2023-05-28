@@ -5,12 +5,13 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import logo from '../../assets/marcador.png';
 
 
+
 Amocali = require('../../assets/AMOCALI.png');
 Apeajal = require('../../assets/APEAJAL2.jpg');
 ASICA = require('../../assets/ASICA.jpg');
 
 
-export default DConsultaG = () => {
+export default ERPConsultaG = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     
 
@@ -137,7 +138,7 @@ export default DConsultaG = () => {
                         <Marker
                             key={item.id}
                             title={item.nombre}
-                            description={item.representante}
+                            description={item.Responsable}
                             coordinate={{
                                 latitude: item.latitud,
                                 longitude: item.longitud,
