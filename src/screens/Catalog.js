@@ -17,6 +17,10 @@ export default Catalog = () => {
         navigation.navigate('DConsultaG');
     };
 
+    const handleERPPress = () => {
+        navigation.navigate('ERPConsultaG');
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -57,7 +61,7 @@ export default Catalog = () => {
 
                     <OpcCatalogIcons
                         text="ERP"
-                        onPress={handleDistGPress}
+                        onPress={handleERPPress}
                         imageSource={require('../../assets/EP.png')}
                     />
                 </ScrollView>

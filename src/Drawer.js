@@ -6,7 +6,11 @@ import Catalog from './screens/Catalog';
 import CatalogM from './screens/CatalogM';
 import DConsultaG from './Distribuidores/DConsultaG';
 import DConsultaM from './Distribuidores/DConsultaM';
+import ERPConsultaG from './ERP/ERPConsultaG';
+import ERPConsultaM from './ERP/ERPConsultaM';
+import ERPMap from './ERP/ERPMap';
 import MenuBottonItem from './ComponentesMenu/MenuBottonItem';
+
 
 
 import { View, Text, StyleSheet } from 'react-native';
@@ -132,6 +136,40 @@ export default Home = () => {
                 component={DConsultaM}
                 options={{
                     title: "Distribuidores Municipales",
+                    headerStyle: {
+                        backgroundColor: '#285430'
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold'
+                    }
+
+                }
+                }
+            />
+
+            <Drawer.Screen
+                name="EPRConsultaG"
+                component={ERPConsultaG}
+                options={{
+                    title: "Empresa Recolectora Privada Generales",
+                    headerStyle: {
+                        backgroundColor: '#285430'
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold'
+                    }
+
+                }
+                }
+            />
+
+            <Drawer.Screen
+                name="ERPConsultaM"
+                component={ERPConsultaM}
+                options={{
+                    title: "Empresa Recolectora Privada Municipales",
                     headerStyle: {
                         backgroundColor: '#285430'
                     },
