@@ -6,12 +6,13 @@ import logo from '../../assets/marcador.png';
 import { SelectList } from 'react-native-dropdown-select-list';
 
 
+
 Amocali = require('../../assets/AMOCALI.png');
 Apeajal = require('../../assets/APEAJAL2.jpg');
 ASICA = require('../../assets/ASICA.jpg');
 
 
-export default DConsultaM = () => {
+export default ERPConsultaM = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [combo, setCombo] = useState('');
     

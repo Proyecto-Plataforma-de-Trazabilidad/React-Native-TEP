@@ -149,7 +149,7 @@ export default Home = () => {
             />
 
             <Drawer.Screen
-                name="EPRConsultaG"
+                name="ERPConsultaG"
                 component={ERPConsultaG}
                 options={{
                     title: "Empresa Recolectora Privada Generales",
