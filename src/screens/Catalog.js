@@ -12,9 +12,13 @@ ASICA = require('../../assets/ASICA.jpg');
 
 export default Catalog = () => {
     const navigation = useNavigation();
-
+    //Manda a llamar al componente que se usara
     const handleDistGPress = () => {
         navigation.navigate('DConsultaG');
+    };
+
+    const handleERPGPress = () => {
+        navigation.navigate('ERPConsultaG');
     };
 
     return (
@@ -32,6 +36,7 @@ export default Catalog = () => {
             <View styl={styles.menu}>
                 <ScrollView>
                     <OpcCatalogIcons
+                    //al precionar se activa la pantalla deseada
                         text="Distribuidores"
                         onPress={handleDistGPress}
                         imageSource={require('../../assets/Distribuidores.png')}
@@ -57,7 +62,7 @@ export default Catalog = () => {
 
                     <OpcCatalogIcons
                         text="ERP"
-                        onPress={handleDistGPress}
+                        onPress={handleERPGPress}
                         imageSource={require('../../assets/EP.png')}
                     />
                 </ScrollView>
