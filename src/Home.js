@@ -51,11 +51,15 @@ export default function Home() {
         if (!(respuestaJSON.error)) {
             //Loggin correcto
             alert(respuestaJSON.mensaje);
-            navigation.navigate('Drawer', {
-                idUsuario: respuestaJSON.datos[0].IdUsuario,
-                Rol: respuestaJSON.datos[0].Idtipousuario,
-                Nombre: respuestaJSON.datos[0].Nombre,
-            });
+
+            //navigation.setParams();
+
+            navigation.navigate('Menu', {
+                //idUsuario: respuestaJSON.datos[0].IdUsuario,
+                //Rol: respuestaJSON.datos[0].Idtipousuario,
+                Nombre: respuestaJSON.datos[0].Nombre
+            }
+            );
         } else
             alert(respuestaJSON.mensaje);//Loggin incorrecto  
     }

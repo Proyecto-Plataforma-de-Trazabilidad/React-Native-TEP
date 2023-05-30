@@ -13,16 +13,14 @@ import { View, Text, StyleSheet } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 
-
-
 const Drawer = createDrawerNavigator();
 
 
-export default Home = () => {
+export default Menu = ({ navigation, route }) => {
+    console.log(route.params.Nombre);
     return (
         <Drawer.Navigator
             drawerContent={(props) => <MenuItems {...props} />}>
-
 
 
             <Drawer.Screen
@@ -151,7 +149,9 @@ export default Home = () => {
     );
 }
 
-const MenuItems = ({ navigation }) => {
+const MenuItems = ({ navigation, route }) => {
+    //console.log(route.params.Nombre);
+
     return (
         <DrawerContentScrollView style={styles.container}>
 
