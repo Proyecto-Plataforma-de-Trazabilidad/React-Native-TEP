@@ -21,10 +21,11 @@ const Drawer = createDrawerNavigator();
 
 
 export default Menu = ({ navigation, route }) => {
-    console.log(route.params.Nombre);
+    //console.log(route.params.Nombre);
     return (
         <Drawer.Navigator
-            drawerContent={(props) => <MenuItems {...props} />}>
+            drawerContent={(props) => <MenuItems {...props} usuario={route.params.Nombre} />
+            }>
 
 
             <Drawer.Screen
@@ -187,15 +188,15 @@ export default Menu = ({ navigation, route }) => {
     );
 }
 
-const MenuItems = ({ navigation, route }) => {
-    //console.log(route.params.Nombre);
+const MenuItems = ({ navigation, usuario }) => {
+    //console.log("Nombre ususrio " + usuario);
 
     return (
         <DrawerContentScrollView style={styles.container}>
 
             <View style={styles.head}>
                 <AntDesign style={styles.icon} size={50} name='user' color={'white'} />
-                <Text style={styles.user}>Alejandro</Text>
+                <Text style={styles.user}>{usuario}</Text>
             </View>
 
 
