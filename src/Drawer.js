@@ -6,13 +6,12 @@ import Catalog from './screens/Catalog';
 import CatalogM from './screens/CatalogM';
 import DConsultaG from './Distribuidores/DConsultaG';
 import DConsultaM from './Distribuidores/DConsultaM';
+import CConsultaG from './Contenedores/CConsultaG';
 import MenuBottonItem from './ComponentesMenu/MenuBottonItem';
 
 
 import { View, Text, StyleSheet } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-
-
 
 
 const Drawer = createDrawerNavigator();
@@ -22,9 +21,6 @@ export default Home = () => {
     return (
         <Drawer.Navigator
             drawerContent={(props) => <MenuItems {...props} />}>
-
-
-
             <Drawer.Screen
                 name="Inicio"
                 component={Index}
@@ -132,6 +128,23 @@ export default Home = () => {
                 component={DConsultaM}
                 options={{
                     title: "Distribuidores Municipales",
+                    headerStyle: {
+                        backgroundColor: '#285430'
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold'
+                    }
+
+                }
+                }
+            />
+
+            <Drawer.Screen
+                name="CConsultaG"
+                component={CConsultaG}
+                options={{
+                    title: "Contenedores Generales",
                     headerStyle: {
                         backgroundColor: '#285430'
                     },

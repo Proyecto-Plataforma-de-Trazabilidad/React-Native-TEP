@@ -17,6 +17,10 @@ export default Catalog = () => {
         navigation.navigate('DConsultaG');
     };
 
+    const handleContenedoresGPress = () => {
+        navigation.navigate('CConsultaG');
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -45,7 +49,7 @@ export default Catalog = () => {
 
                     <OpcCatalogIcons
                         text="Contenedores"
-                        onPress={handleDistGPress}
+                        onPress={handleContenedoresGPress}
                         imageSource={require('../../assets/Contenedores.png')}
                     />
 
