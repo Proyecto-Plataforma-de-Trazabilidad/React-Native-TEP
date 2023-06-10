@@ -6,8 +6,11 @@ import Catalog from './screens/Catalog';
 import CatalogM from './screens/CatalogM';
 import DConsultaG from './Distribuidores/DConsultaG';
 import DConsultaM from './Distribuidores/DConsultaM';
-import CConsultaG from './Contenedores/CConsultaG';
+import ERPConsultaG from './ERP/ERPConsultaG';
+import ERPConsultaM from './ERP/ERPConsultaM';
+import ERPMap from './ERP/ERPMap';
 import MenuBottonItem from './ComponentesMenu/MenuBottonItem';
+
 
 
 import { View, Text, StyleSheet } from 'react-native';
@@ -17,10 +20,14 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 const Drawer = createDrawerNavigator();
 
 
-export default Home = () => {
+export default Menu = ({ navigation, route }) => {
+    //console.log(route.params.Nombre);
     return (
         <Drawer.Navigator
-            drawerContent={(props) => <MenuItems {...props} />}>
+            drawerContent={(props) => <MenuItems {...props} usuario={route.params.Nombre} />
+            }>
+
+
             <Drawer.Screen
                 name="Inicio"
                 component={Index}
@@ -141,10 +148,27 @@ export default Home = () => {
             />
 
             <Drawer.Screen
-                name="CConsultaG"
-                component={CConsultaG}
+                name="ERPConsultaG"
+                component={ERPConsultaG}
                 options={{
-                    title: "Contenedores Generales",
+                    title: "Empresa Recolectora Privada Generales",
+                    headerStyle: {
+                        backgroundColor: '#285430'
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold'
+                    }
+
+                }
+                }
+            />
+
+            <Drawer.Screen
+                name="ERPConsultaM"
+                component={ERPConsultaM}
+                options={{
+                    title: "Empresa Recolectora Privada Municipales",
                     headerStyle: {
                         backgroundColor: '#285430'
                     },
@@ -164,13 +188,15 @@ export default Home = () => {
     );
 }
 
-const MenuItems = ({ navigation }) => {
+const MenuItems = ({ navigation, usuario }) => {
+    //console.log("Nombre ususrio " + usuario);
+
     return (
         <DrawerContentScrollView style={styles.container}>
 
             <View style={styles.head}>
                 <AntDesign style={styles.icon} size={50} name='user' color={'white'} />
-                <Text style={styles.user}>Alejandro</Text>
+                <Text style={styles.user}>{usuario}</Text>
             </View>
 
 

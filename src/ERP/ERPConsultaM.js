@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, ScrollView, Modal, TouchableHighlight, Image } 
 import { DataTable } from 'react-native-paper';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import logo from '../../assets/marcador.png';
+import { SelectList } from 'react-native-dropdown-select-list';
+
 
 
 Amocali = require('../../assets/AMOCALI.png');
@@ -10,33 +12,17 @@ Apeajal = require('../../assets/APEAJAL2.jpg');
 ASICA = require('../../assets/ASICA.jpg');
 
 
-export default DConsultaG = () => {
+export default ERPConsultaM = () => {
     const [selectedItem, setSelectedItem] = useState(null);
-    const [datos, setDatos] = useState([]);
+    const [combo, setCombo] = useState('');
+    
 
 
-    const obtenerDatos = async () => {  //Se inicia una peticion asincrona 
-        //se guarda la respuesfa cuando la peticion fetch se resuleve 
-        const respuestaPOST = await fetch('https://nodejs-api-tep-production.up.railway.app/consultasGenerales/distribuidores', {
-            method: 'GET',      //Es un metodo get por lo que no necesita parametros
-            headers: { //Las canbeseras entan en JSON
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            }
-        });
 
-        const respuestaJSON = await respuestaPOST.json(); //Se decodifca la respuesta
-
-        if (!(respuestaJSON.error)) {
-            //console.log(respuestaJSON);
-            setDatos(respuestaJSON); //Se actualiza el hook con la respuesta JSON
-        } else {
-            //Mostrar mensaje de error 
-        }
-    }
-
-    obtenerDatos();
-
+    const data = [
+        { id: 1, nombre: "Recolector S.A", Responsable: "Jose",  domicilio: "domicilio cualquiera ", Municipio: "Zapotlán el Grande", estado: "Jalisco", CP:"49650", telefono: "3411234567", email: "sergiojosepina@outlook.com", latitud: 19.701864, longitud: -103.470566 },
+        { id: 2, nombre: "ERP2", Responsable: "Julio", domicilio: "Ocampo #30", Municipio: "Acatlán de Juárez", estado: "Jalisco", CP:"49650", telefono: "3411349165", email: "ERP2@gmail.com", latitud: 19.714470, longitud: -103.463356 },
+    ];
 
     const handleItemClick = (item) => {
         setSelectedItem(item);
@@ -51,7 +37,7 @@ export default DConsultaG = () => {
 
         <View style={styles.container}>
 
-
+            
             <View style={styles.header}>
 
                 <Image source={Amocali} style={styles.image}></Image>
@@ -61,6 +47,17 @@ export default DConsultaG = () => {
             </View>
             <Text style={styles.slogan}>"Combatiendo la pirateria de agroquímicos"</Text>
 
+            <SelectList
+            setCombo = {(value) => setCombo(value)}
+            data={data}
+            save="value"
+            placeholder="Selecciona Municipio"
+            searchPlaceholder="buscar"
+            
+            />
+                
+            
+
             <DataTable>
                 <DataTable.Header>
                     <DataTable.Title>Nombre</DataTable.Title>
@@ -68,16 +65,15 @@ export default DConsultaG = () => {
 
                 </DataTable.Header>
 
-                {datos.map((item) => (
-
+                {data.map((item) => (
                     <TouchableHighlight
-                        key={item.IdDistribuidor}
+                        key={item.id}
                         underlayColor="#f2f2f2"
                         onPress={() => handleItemClick(item)}
                     >
                         <DataTable.Row>
-                            <DataTable.Cell>{item.Nombre}</DataTable.Cell>
-                            <DataTable.Cell>{item.Representante}</DataTable.Cell>
+                            <DataTable.Cell>{item.nombre}</DataTable.Cell>
+                            <DataTable.Cell>{item.representante}</DataTable.Cell>
 
                         </DataTable.Row>
                     </TouchableHighlight>
@@ -87,33 +83,33 @@ export default DConsultaG = () => {
             <Modal visible={selectedItem !== null} animationType="slide">
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalText}>Distribuidor: {selectedItem?.Nombre}</Text>
-                        <Text style={styles.modalText}>Representante: {selectedItem?.Representante}</Text>
-                        <Text style={styles.modalText}>Domicilio: {selectedItem?.Domicilio}</Text>
-                        <Text style={styles.modalText}>Ciudad: {selectedItem?.Ciudad}</Text>
-                        <Text style={styles.modalText}>Estado: {selectedItem?.Edo}</Text>
-                        <Text style={styles.modalText}>Teléfono: {selectedItem?.Telefono}</Text>
-                        <Text style={styles.modalText}>Email: {selectedItem?.Correo}</Text>
+                        <Text style={styles.modalText}>Distribuidor: {selectedItem?.nombre}</Text>
+                        <Text style={styles.modalText}>Representante: {selectedItem?.representante}</Text>
+                        <Text style={styles.modalText}>Domicilio: {selectedItem?.domicilio}</Text>
+                        <Text style={styles.modalText}>Ciudad: {selectedItem?.ciudad}</Text>
+                        <Text style={styles.modalText}>Estado: {selectedItem?.estado}</Text>
+                        <Text style={styles.modalText}>Teléfono: {selectedItem?.telefono}</Text>
+                        <Text style={styles.modalText}>Email: {selectedItem?.email}</Text>
                         <MapView
                             style={styles.map}
                             provider={PROVIDER_GOOGLE}
                             mapType="mutedStandard"
                             initialRegion={{
-                                latitude: selectedItem?.Latitud,
-                                longitude: selectedItem?.Longitud,
+                                latitude: selectedItem?.latitud,
+                                longitude: selectedItem?.longitud,
                                 latitudeDelta: 0.003,
                                 longitudeDelta: 0.003,
                             }}
                         >
 
                             <Marker
-                                key={selectedItem?.IdDistribuidor}
-                                title={selectedItem?.Nombre}
+                                key={selectedItem?.id}
+                                title={selectedItem?.nombre}
 
-                                description={selectedItem?.Representante}
+                                description={selectedItem?.representante}
                                 coordinate={{
-                                    latitude: selectedItem?.Latitud,
-                                    longitude: selectedItem?.Longitud,
+                                    latitude: selectedItem?.latitud,
+                                    longitude: selectedItem?.longitud,
                                 }}
                             >
                                 <Image source={logo} style={styles.markerImage} />
@@ -147,24 +143,29 @@ export default DConsultaG = () => {
             >
 
 
-                {datos.map((item) => {
+                {data.map((item) => {
                     // Realiza alguna operación con cada elemento de data
                     // o renderiza un componente personalizado para cada elemento
                     return (
                         <Marker
-                            key={item.IdDistribuidor}
-                            title={item.Nombre}
-                            description={item.Representante}
+                            key={item.id}
+                            title={item.nombre}
+                            description={item.representante}
                             coordinate={{
-                                latitude: item.Latitud,
-                                longitude: item.Longitud,
+                                latitude: item.latitud,
+                                longitude: item.longitud,
                             }}
                         >
                             <Image source={logo} style={styles.markerImage} />
                         </Marker>
                     );
                 })}
+
+
+
             </MapView>
+
+
         </View>
 
     );
