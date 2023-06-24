@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Image, Text, StyleSheet, View, ScrollView, TouchableOpacity, TextInput, Button, StatusBar } from "react-native";
 import { BlurView } from 'expo-blur';
 import { useNavigation } from '@react-navigation/native';
-import axios from "axios";
-import CustomAlert from "./ComponentesMenu/CustomAlert";
 
 
 export default function Home() {
+
+
 
     //Hacer la peticion de la consulta
 
@@ -20,11 +20,6 @@ export default function Home() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    //ALERTS
-    const [showAlert, setShowAlert] = useState(true);
-    const handleCloseAlert = () => {
-        setShowAlert(false);
-    };
 
     //Declarar la navegación
     const navigation = useNavigation();
